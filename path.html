@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>类案同判路径demo</title>
+		<link rel="stylesheet" type="text/css" href="pathUtils.css">
+		<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="snap.svg-min.js"></script>
+		<script type="text/javascript" src="pathUtils.js"></script>
+		<script type="text/javascript">
+			var jsonStr='{"caseName":"李某盗窃罪","reason":"盗窃罪","caseFactor":[{"name":"当事人信息","value":[{"name":"老年人","value":0},{"name":"聋哑人","value":0},{"name":"完全行为责任人","value":1},{"name":"盲人","value":0},{"name":"未成年人","value":0},{"name":"未满14周岁","value":0}]},{"name":"犯罪情节","value":[{"name":"入室盗窃","value":1},{"name":"针对孤寡老人","value":0},{"name":"盗窃珍贵文物","value":0},{"name":"采用破坏性手段","value":0},{"name":"携带凶器","value":0},{"name":"故意破坏","value":0}]},{"name":"共同犯罪","value":[{"name":"主犯","value":0},{"name":"从犯","value":0},{"name":"团伙犯罪","value":0},{"name":"单独犯罪","value":1}]},{"name":"累犯情况","value":[{"name":"初次犯罪","value":1},{"name":"累犯","value":0}]},{"name":"盗窃金额","value":[{"name":"数额较大","value":1},{"name":"数额巨大","value":0},{"name":"数额特别巨大","value":0}]},{"name":"从重情节","value":[{"name":"采取暴力手段","value":1},{"name":"故意犯罪","value":1},{"name":"隐瞒","value":0},{"name":"教唆他人","value":0},{"name":"吸食毒品","value":0},{"name":"五年内再犯","value":0}]},{"name":"从轻情节","value":[{"name":"自首","value":1},{"name":"当庭认罪","value":1},{"name":"赔偿","value":0},{"name":"有悔过表现","value":1},{"name":"未遂","value":0},{"name":"过失犯罪","value":0},{"name":"举报","value":0},{"name":"立功","value":0}]}]}';
+			var arc = 10;
+			var fontsize = 14;
+			var unitheight = 30;
+			var wpadding = 30;
+			var hpadding = 50;
+			var jsonObj = JSON.parse(jsonStr);
+			makePanel(jsonObj, fontsize, unitheight, wpadding, hpadding);
+		</script>
+	</head>
+	<body>
+		<svg id="path">
+		</svg>
+		<script type="text/javascript">
+			renderPanel(jsonObj, unitheight, arc);
+		</script>
+	</body>
+</html>

@@ -122,12 +122,19 @@ function renderPanel(jsonObj, unitheight, arc) {
 }
 
 function renderPath(paper, rect1, rect2) {
+	var bb1 = rect1.getBBox();
+	var bb2 = rect2.getBBox();
 	var p1 = paper.path("M0,0 L0,6 L3,3 z").attr({"fill":"#4a70f7"});
 	var arrow = p1.marker(0, 0, 10, 10, 0, 3);
 	var markerHeight = 6;
+	var arcLength = 10;
+	if (Math.abs(bb1.cx - bb2.cx) < arcLength) {
+		arcLength = Math.abs(bb1.cx - bb2.cx) / 2;
+	}
+	if (Math.abs(bb2.y - bb1.y2) < arcLength) {
+		arcLength = Math.abs(bb1.cx - bb2.cx) / 2;
+	}
 	var n;
-	var bb1 = rect1.getBBox();
-	var bb2 = rect2.getBBox();
 	var n1 = "M" + bb1.cx + "," + bb1.y2 + " ";
 	if (bb1.cx === bb2.cx) {
 		var n2 = "L" + bb2.cx + "," + (bb2.y - markerHeight);
@@ -135,19 +142,19 @@ function renderPath(paper, rect1, rect2) {
 	}
 	else if (bb1.cx < bb2.cx) {
 		var arc = bb1.y2 + (bb2.y - bb1.y2) / 2;
-		var n2 = "V" + (arc - 10) + " ";
-		var a1 = "Q" + bb1.cx + " " + arc + " " + (bb1.cx + 10) + " " + arc;
-		var n3 = "H" + (bb2.cx - 10) + " ";
-		var a2 = "Q" + bb2.cx + " " + arc + " " + bb2.cx + " " + (arc + 10);
+		var n2 = "V" + (arc - arcLength) + " ";
+		var a1 = "Q" + bb1.cx + " " + arc + " " + (bb1.cx + arcLength) + " " + arc;
+		var n3 = "H" + (bb2.cx - arcLength) + " ";
+		var a2 = "Q" + bb2.cx + " " + arc + " " + bb2.cx + " " + (arc + arcLength);
 		var n4 = "L" + bb2.cx + "," + (bb2.y - markerHeight);
 		n = n1 + n2 + a1 + n3 + a2 + n4;
 	}
 	else {
 		var arc = bb1.y2 + (bb2.y - bb1.y2) / 2;
-		var n2 = "V" + (arc - 10) + " ";
-		var a1 = "Q" + bb1.cx + " " + arc + " " + (bb1.cx - 10) + " " + arc;
-		var n3 = "H" + (bb2.cx + 10) + " ";
-		var a2 = "Q" + bb2.cx + " " + arc + " " + bb2.cx + " " + (arc + 10);
+		var n2 = "V" + (arc - arcLength) + " ";
+		var a1 = "Q" + bb1.cx + " " + arc + " " + (bb1.cx - arcLength) + " " + arc;
+		var n3 = "H" + (bb2.cx + arcLength) + " ";
+		var a2 = "Q" + bb2.cx + " " + arc + " " + bb2.cx + " " + (arc + arcLength);
 		var n4 = "L" + bb2.cx + "," + (bb2.y - markerHeight);
 		n = n1 + n2 + a1 + n3 + a2 + n4;
 	}
